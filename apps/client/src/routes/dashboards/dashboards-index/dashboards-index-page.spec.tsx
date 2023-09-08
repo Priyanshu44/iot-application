@@ -67,16 +67,9 @@ const queryDashboardNameTooLongError = () =>
 
 const getDashboardDescriptionField = () =>
   screen.getByPlaceholderText('Enter dashboard description');
-const queryDashboardDescriptionField = () =>
-  screen.queryByPlaceholderText('Enter dashboard description');
 
 const getDashboardDescriptionCell = (description: string) =>
   screen.getByRole('cell', { name: description });
-
-const getDashboardDescriptionRequiredError = () =>
-  screen.getByText('Dashboard description is required.');
-const queryDashboardDescriptionRequiredError = () =>
-  screen.queryByText('Dashboard description is required.');
 
 const getDashboardDescriptionTooLongError = () =>
   screen.getByText(/Dashboard description must be \d+ characters or less./);
@@ -214,25 +207,6 @@ describe('<DashboardsIndexPage />', () => {
       expect(queryDashboardNameRequiredError()).not.toBeInTheDocument();
     });
 
-    it('should render a validation error when the description is empty', async () => {
-      const user = userEvent.setup();
-      render(<DashboardsIndexPage />);
-
-      expect(queryDashboardDescriptionField()).not.toBeInTheDocument();
-
-      await waitFor(async () => {
-        await user.click(getDashboardDescriptionCell('test description'));
-      });
-
-      expect(queryDashboardDescriptionRequiredError()).not.toBeInTheDocument();
-
-      await waitFor(async () => {
-        await user.clear(getDashboardDescriptionField());
-      });
-
-      expect(getDashboardDescriptionRequiredError()).toBeVisible();
-    });
-
     it('should render a validation error when the description is too long', async () => {
       const user = userEvent.setup();
       render(<DashboardsIndexPage />);
@@ -257,43 +231,6 @@ describe('<DashboardsIndexPage />', () => {
       );
 
       expect(getDashboardDescriptionTooLongError()).toBeVisible();
-    });
-
-    it('should remove the description validation error on cancel', async () => {
-      const user = userEvent.setup();
-      render(<DashboardsIndexPage />);
-
-      await waitFor(
-        async () => {
-          await user.click(getDashboardDescriptionCell('test description'));
-          await user.clear(getDashboardDescriptionField());
-          await user.click(getCancelButton());
-        },
-        {
-          timeout: 5000,
-        },
-      );
-
-      expect(queryDashboardDescriptionRequiredError()).not.toBeInTheDocument();
-    });
-
-    it('should not retain the description validation error on cancel', async () => {
-      const user = userEvent.setup();
-      render(<DashboardsIndexPage />);
-
-      await waitFor(
-        async () => {
-          await user.click(getDashboardDescriptionCell('test description'));
-          await user.clear(getDashboardDescriptionField());
-          await user.click(getCancelButton());
-          await user.click(getDashboardDescriptionCell('test description'));
-        },
-        {
-          timeout: 5000,
-        },
-      );
-
-      expect(queryDashboardDescriptionRequiredError()).not.toBeInTheDocument();
     });
   });
 });

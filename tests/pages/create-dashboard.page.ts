@@ -9,7 +9,6 @@ export class CreateDashboardPage {
   readonly createButton: Locator;
   readonly cancelButton: Locator;
   readonly nameRequiredError: Locator;
-  readonly descriptionRequiredError: Locator;
   readonly nameMaxLengthError: Locator;
   readonly descriptionMaxLengthError: Locator;
   readonly nameMaxLength = 100;
@@ -25,9 +24,6 @@ export class CreateDashboardPage {
     this.createButton = page.getByRole('button', { name: 'Create' });
     this.cancelButton = page.getByRole('button', { name: 'Cancel' });
     this.nameRequiredError = page.getByText('Dashboard name is required.');
-    this.descriptionRequiredError = page.getByText(
-      'Dashboard description is required.',
-    );
     this.nameMaxLengthError = page.getByText(
       'Dashboard name must be 100 characters or less.',
     );

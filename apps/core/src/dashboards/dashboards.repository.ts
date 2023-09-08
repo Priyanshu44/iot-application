@@ -222,7 +222,6 @@ export class DashboardsRepository {
           ],
         }),
       );
-
       return ok({
         name,
         definition,
@@ -232,6 +231,7 @@ export class DashboardsRepository {
         creationDate,
       });
     } catch (error) {
+      console.log("---------------------------------------------------------------------------------------------------------------------------",error)
       return error instanceof Error
         ? err(error)
         : err(new Error(MESSAGES.UNKNOWN_ERROR));

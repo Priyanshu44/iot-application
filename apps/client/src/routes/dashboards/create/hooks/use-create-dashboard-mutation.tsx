@@ -57,7 +57,7 @@ export function useCreateDashboardMutation() {
     },
     onError: (error) => {
       invariant(isApiError(error), 'Expected error to be an ApiError');
-
+      console.log(error)
       // non-fatal errors are rendered in the form
       if (isFatal(error)) {
         emit(new GenericErrorNotification(error));

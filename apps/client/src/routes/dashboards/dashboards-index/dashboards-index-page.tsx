@@ -525,11 +525,6 @@ export function DashboardsIndexPage() {
                     control={control}
                     name="description"
                     rules={{
-                      required: intl.formatMessage({
-                        defaultMessage: 'Dashboard description is required.',
-                        description:
-                          'create dashboard form description required',
-                      }),
                       maxLength: {
                         value: $Dashboard.properties.description.maxLength,
                         message: intl.formatMessage(
